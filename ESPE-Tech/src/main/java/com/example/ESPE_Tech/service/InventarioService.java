@@ -21,7 +21,7 @@ public class InventarioService {
         Map<String, Integer> contadorEquipos = new HashMap<>();
         Map<String, HardwareEntity> equipoMasCaroPorCategoria = new HashMap<>();
 
-        // El filtro pide los últimos 5 años
+
         LocalDate fechaLimite = LocalDate.now().minusYears(5);
 
         // 1. Bucle for-each tradicional para recorrer los 10,000 registros uno por uno
