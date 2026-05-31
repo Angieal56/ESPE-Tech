@@ -16,7 +16,7 @@ public class InventarioService {
 
     // --- PARADIGMA IMPERATIVO (Estilo Tradicional) ---
     public Map<String, CategoriaReporteDTO> procesarImperativo(List<HardwareEntity> todosLosEquipos) {
-        // Mapas auxiliares para acumular los estados manualmente
+
         Map<String, BigDecimal> sumaPrecios = new HashMap<>();
         Map<String, Integer> contadorEquipos = new HashMap<>();
         Map<String, HardwareEntity> equipoMasCaroPorCategoria = new HashMap<>();
@@ -27,23 +27,23 @@ public class InventarioService {
         // 1. Bucle for-each tradicional para recorrer los 10,000 registros uno por uno
         for (HardwareEntity equipo : todosLosEquipos) {
 
-            // Condicional manual para verificar filtros (Últimos 5 años y ACTIVO)
+
             if (equipo.getFechaCompra().isAfter(fechaLimite) && "ACTIVO".equalsIgnoreCase(equipo.getEstado())) {
                 String cat = equipo.getCategoria();
 
-                // Si la categoría no existe en los mapas, inicializamos los contadores
+
                 if (!sumaPrecios.containsKey(cat)) {
                     sumaPrecios.put(cat, BigDecimal.ZERO);
                     contadorEquipos.put(cat, 0);
                 }
 
-                // Acumulación manual del precio total
+
                 sumaPrecios.put(cat, sumaPrecios.get(cat).add(equipo.getPrecio()));
 
-                // Incremento manual del contador de unidades
+
                 contadorEquipos.put(cat, contadorEquipos.get(cat) + 1);
 
-                // Algoritmo de ordenación manual para hallar el equipo más caro de cada grupo
+
                 if (!equipoMasCaroPorCategoria.containsKey(cat)) {
                     equipoMasCaroPorCategoria.put(cat, equipo);
                 } else {
@@ -55,7 +55,7 @@ public class InventarioService {
             }
         }
 
-        // 2. Construir el DTO final combinando los mapas de acumulación
+        // 2. DTO final combinando los mapas de acumulación
         Map<String, CategoriaReporteDTO> resultadoFinal = new HashMap<>();
         for (String cat : sumaPrecios.keySet()) {
             BigDecimal total = sumaPrecios.get(cat);
@@ -64,7 +64,7 @@ public class InventarioService {
 
             double promedio = 0.0;
             if (cantidad > 0) {
-                // División manual configurando redondeo de dos decimales
+
                 promedio = total.divide(BigDecimal.valueOf(cantidad), 2, RoundingMode.HALF_UP).doubleValue();
             }
 
@@ -82,12 +82,12 @@ public class InventarioService {
     public Map<String, CategoriaReporteDTO> procesarFuncional(List<HardwareEntity> todosLosEquipos) {
         LocalDate fechaLimite = LocalDate.now().minusYears(5);
 
-        // Usamos Streams para filtrar, agrupar y calcular en una sola tubería de datos
+
         return todosLosEquipos.stream()
-                // 1. Filtro avanzado utilizando predicados declarativos
+
                 .filter(equipo -> equipo.getFechaCompra().isAfter(fechaLimite))
                 .filter(equipo -> "ACTIVO".equalsIgnoreCase(equipo.getEstado()))
-                // 2. Agrupación y cálculo complejo en paralelo mediante Collectors.groupingBy
+
                 .collect(java.util.stream.Collectors.groupingBy(
                         HardwareEntity::getCategoria,
                         java.util.stream.Collectors.collectingAndThen(
