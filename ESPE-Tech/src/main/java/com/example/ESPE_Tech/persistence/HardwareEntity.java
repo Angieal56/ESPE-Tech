@@ -27,7 +27,7 @@ public class HardwareEntity {
     @Column(nullable = false, length = 20)
     private String estado; // ACTIVO, DEBAJA
 
-    // --- CONSTRUCTORES ---
+    // CONSTRUCTORES
     public HardwareEntity() {}
 
     public HardwareEntity(Long id, String modelo, String categoria, BigDecimal precio, LocalDate fechaCompra, String estado) {
@@ -39,7 +39,7 @@ public class HardwareEntity {
         this.estado = estado;
     }
 
-    // --- GETTERS Y SETTERS ---
+    // GETTERS Y SETTERS
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

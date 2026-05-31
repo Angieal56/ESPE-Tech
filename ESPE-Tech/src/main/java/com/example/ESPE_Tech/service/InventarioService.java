@@ -14,7 +14,7 @@ import java.util.Map;
 @Service
 public class InventarioService {
 
-    // --- PARADIGMA IMPERATIVO (Estilo Tradicional) ---
+    // PARADIGMA IMPERATIVO (Estilo Tradicional)
     public Map<String, CategoriaReporteDTO> procesarImperativo(List<HardwareEntity> todosLosEquipos) {
 
         Map<String, BigDecimal> sumaPrecios = new HashMap<>();
@@ -78,7 +78,7 @@ public class InventarioService {
 
         return resultadoFinal;
     }
-    // --- PARADIGMA FUNCIONAL / DECLARATIVO (Java Streams API) ---
+    // PARADIGMA FUNCIONAL / DECLARATIVO (Java Streams API)
     public Map<String, CategoriaReporteDTO> procesarFuncional(List<HardwareEntity> todosLosEquipos) {
         LocalDate fechaLimite = LocalDate.now().minusYears(5);
 
