@@ -93,16 +93,16 @@ public class InventarioService {
                         java.util.stream.Collectors.collectingAndThen(
                                 java.util.stream.Collectors.toList(),
                                 listaPorCategoria -> {
-                                    // Calcular el valor total sumando con BigDecimal
+                                    // valor total sumando con BigDecimal
                                     BigDecimal total = listaPorCategoria.stream()
                                             .map(HardwareEntity::getPrecio)
                                             .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-                                    // Calcular el promedio aritmético
+                                    // Promedio aritmético
                                     double promedio = listaPorCategoria.isEmpty() ? 0.0 :
                                             total.divide(BigDecimal.valueOf(listaPorCategoria.size()), 2, RoundingMode.HALF_UP).doubleValue();
 
-                                    // Encontrar el equipo más caro usando max() y Optional
+                                    // Equipo más caro usando max() y Optional
                                     String masCaro = listaPorCategoria.stream()
                                             .max(java.util.Comparator.comparing(HardwareEntity::getPrecio))
                                             .map(e -> e.getModelo() + " ($" + e.getPrecio().setScale(2, RoundingMode.HALF_UP) + ")")
